@@ -6,6 +6,11 @@
   animation-timing-function: cubic-bezier(1, -0.62, 0.61, 1.37);
 }
 
+.stage {
+  display: flex;
+  flex-direction: column;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -40,6 +45,7 @@ body:has(input.variable:checked) .grid {
 }
 
 .item {
+  position: relative;
   background-color: #efefef;
   background-image: var(--background);
   background-size: cover;
@@ -62,48 +68,32 @@ body:has(input.variable:checked) .grid {
     width: 100%;
   }
   video {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400%;
+    height: 400%;
+    max-width: none;
+    max-height: none;
     object-fit: cover;
+    transform: translate(var(--x), var(--y));
     margin: 0;
     padding: 0;
   }
+}
 
-  &.item2,
-  &.item6,
-  &.item10,
-  &.item14 {
-    --x: -25%;
+@media (min-width: 1024px) {
+  .stage {
+    height: 100dvh;
+    overflow: hidden;
   }
-  &.item3,
-  &.item7,
-  &.item11,
-  &.item15 {
-    --x: -50%;
+  .grid {
+    flex: 1;
+    min-height: 0;
+    grid-template-rows: repeat(4, 1fr);
   }
-  &.item4,
-  &.item8,
-  &.item12,
-  &.item16 {
-    --x: -75%;
-  }
-  &.item5,
-  &.item6,
-  &.item7,
-  &.item8 {
-    --y: -25%;
-  }
-  &.item9,
-  &.item10,
-  &.item11,
-  &.item12 {
-    --y: -50%;
-  }
-  &.item13,
-  &.item14,
-  &.item15,
-  &.item16 {
-    --y: -75%;
+  .item {
+    aspect-ratio: auto;
   }
 }
 

@@ -94,16 +94,16 @@ function AnimatedVideoGrid() {
   };
 
   return (
-    <>
+    <div className="stage">
       <div className="controls">
         <button className="randomize" onClick={handleRandomize}>Randomize</button>
         <button className="order" onClick={handleOrder}>Order</button>
         <button onClick={handleToggleVideo}>{playing ? 'Stop' : 'Play'}</button>
       </div>
       <div className="grid">
-        {items.map((item, index) => {
-          const col = index % 4;
-          const row = Math.floor(index / 4);
+        {items.map((item) => {
+          const col = (item.id - 1) % 4;
+          const row = Math.floor((item.id - 1) / 4);
           return (
             <div
               key={item.id}
@@ -126,7 +126,7 @@ function AnimatedVideoGrid() {
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
 

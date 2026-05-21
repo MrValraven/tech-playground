@@ -1,47 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-import EncryptButton from './components/EncryptButton/EncryptButton'
-import BubbleText from './components/BubbleText/BubbleText'
-import AnimatedVideoGrid from './components/AnimatedVideoGrid/AnimatedVideoGrid'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import AppLayout from './layout/AppLayout'
+import ExperimentPage from './layout/ExperimentPage'
+import { experiments } from './experiments'
 
-function App() {
-  const [count, setCount] = useState(0)
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppLayout />,
+    children: [
+      { index: true, element: <Navigate to={experiments[0]?.slug ?? '/'} replace /> },
+      { path: ':slug', element: <ExperimentPage /> },
+    ],
+  },
+])
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-            <EncryptButton />
-            <BubbleText/>
-            
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-
-      <section id="spacer">
-        <AnimatedVideoGrid/>
-      </section>
-    </>
-  )
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App
